@@ -1,0 +1,105 @@
+@model IEnumerable<ProviderAssignmentStarter.Models.Provider>
+@{
+    ViewData["Title"] = "Providers";
+}
+
+<div class="page-header-bar">
+    <div class="container-fluid px-3 px-md-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-decal">
+                <li class="breadcrumb-item active" aria-current="page">Providers</li>
+            </ol>
+        </nav>
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h2>Child Care Providers</h2>
+                <p class="page-subtitle">Manage and monitor licensed child care providers statewide</p>
+            </div>
+            <a asp-action="Create" class="btn btn-decal-gold">+ Add Provider</a>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid px-3 px-md-4">
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Success"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">No active providers found.</div>
+}
+else
+{
+    <div class="card mb-4">
+        <div class="card-header decal-primary d-flex justify-content-between align-items-center">
+            <span>Provider Listing</span>
+            <span class="badge bg-light text-dark">@Model.Count() providers</span>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th>Provider Name</th>
+                            <th>County</th>
+                            <th>Status</th>
+                            <th>Created</th>
+                            <th>Licenses</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var p in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <a asp-action="Details" asp-route-id="@p.ProviderId"
+                                       class="fw-medium text-decal-navy text-decoration-none">@p.ProviderName</a>
+                                </td>
+                                <td>@p.County</td>
+                                <td>
+                                    <span class="badge @(p.Status == "Active" ? "bg-success" : p.Status == "Pending" ? "bg-warning" : "bg-secondary")">
+                                        @p.Status
+                                    </span>
+                                </td>
+                                <td>@p.CreatedDate.ToString("MM/dd/yyyy")</td>
+                                <td>
+                                    @{
+                                        var activeLicenses = p.Licenses.Count(l => l.LicenseStatus == "Active");
+                                        var totalLicenses = p.Licenses.Count;
+                                    }
+                                    <span class="@(totalLicenses == 0 ? "text-muted" : "")">
+                                        @activeLicenses active / @totalLicenses total
+                                    </span>
+                                    @if (p.Licenses.Any(l => l.LicenseStatus == "Expired" || l.ExpirationDate < DateTime.UtcNow))
+                                    {
+                                        <span class="badge bg-danger ms-1" title="Has expired licenses">!</span>
+                                    }
+                                </td>
+                                <td>
+                                    <div class="d-flex gap-1">
+                                        <a asp-action="Details" asp-route-id="@p.ProviderId" class="btn btn-sm btn-outline-primary">View</a>
+                                        <a asp-action="Edit" asp-route-id="@p.ProviderId" class="btn btn-sm btn-outline-secondary">Edit</a>
+                                        <a asp-action="Delete" asp-route-id="@p.ProviderId" class="btn btn-sm btn-outline-danger">Delete</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="mt-3">
+    <a asp-controller="Reports" asp-action="Index" class="btn btn-outline-primary">View Data Reports</a>
+</div>
+
+</div>

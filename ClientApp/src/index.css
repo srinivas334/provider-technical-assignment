@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+:root {
+  --decal-navy: #003366;
+  --decal-navy-dark: #00254d;
+  --decal-gold: #C8A951;
+  --decal-gold-dark: #A08430;
+  --decal-bg: #F4F6F9;
+}

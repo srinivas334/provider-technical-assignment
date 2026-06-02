@@ -1,0 +1,127 @@
+@model ProviderAssignmentStarter.Models.Provider
+@{
+    ViewData["Title"] = "Provider Details";
+}
+
+<div class="page-header-bar">
+    <div class="container-fluid px-3 px-md-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-decal">
+                <li class="breadcrumb-item"><a asp-action="Index">Providers</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@Model.ProviderName</li>
+            </ol>
+        </nav>
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h2>@Model.ProviderName</h2>
+                <p class="page-subtitle">Provider Details &amp; License Records</p>
+            </div>
+            <div class="d-flex gap-2">
+                <a asp-action="Edit" asp-route-id="@Model.ProviderId" class="btn btn-decal-gold">Edit</a>
+                <a asp-action="Index" class="btn btn-outline-secondary">Back to List</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid px-3 px-md-4">
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Success"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<div class="card mb-4">
+    <div class="card-header decal-primary">Provider Information</div>
+    <div class="card-body">
+        <dl class="row mb-0">
+            <dt class="col-sm-3">Provider ID</dt>
+            <dd class="col-sm-9">@Model.ProviderId</dd>
+
+            <dt class="col-sm-3">County</dt>
+            <dd class="col-sm-9">@Model.County</dd>
+
+            <dt class="col-sm-3">Status</dt>
+            <dd class="col-sm-9">
+                <span class="badge @(Model.Status == "Active" ? "bg-success" : Model.Status == "Pending" ? "bg-warning" : "bg-secondary")">
+                    @Model.Status
+                </span>
+            </dd>
+
+            <dt class="col-sm-3">Created</dt>
+            <dd class="col-sm-9">@Model.CreatedDate.ToString("MM/dd/yyyy")</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="section-title mb-0">Licenses</h4>
+    <a asp-controller="Licenses" asp-action="Create"
+       asp-route-providerId="@Model.ProviderId"
+       asp-route-providerName="@Model.ProviderName"
+       class="btn btn-sm btn-decal-gold">+ Add License</a>
+</div>
+
+@if (!Model.Licenses.Any())
+{
+    <div class="alert alert-info">No licenses on record for this provider.</div>
+}
+else
+{
+    <div class="card">
+        <div class="card-header decal-secondary d-flex justify-content-between align-items-center">
+            <span>License Records</span>
+            <span class="badge bg-light text-dark">@Model.Licenses.Count records</span>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-sm table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th>License Number</th>
+                            <th>Status</th>
+                            <th>Expiration Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var lic in Model.Licenses.OrderBy(l => l.ExpirationDate))
+                        {
+                            var isExpired = lic.ExpirationDate < DateTime.UtcNow;
+                            <tr class="@(isExpired ? "table-warning" : "")">
+                                <td>@lic.LicenseNumber</td>
+                                <td>
+                                    <span class="badge @(lic.LicenseStatus == "Active" ? "bg-success" : lic.LicenseStatus == "Suspended" ? "bg-warning" : "bg-danger")">
+                                        @lic.LicenseStatus
+                                    </span>
+                                    @if (isExpired && lic.LicenseStatus != "Expired")
+                                    {
+                                        <span class="badge bg-danger ms-1">Past Expiration</span>
+                                    }
+                                </td>
+                                <td>
+                                    @lic.ExpirationDate.ToString("MM/dd/yyyy")
+                                    @if (isExpired)
+                                    {
+                                        <small class="text-danger ms-1">(expired)</small>
+                                    }
+                                </td>
+                                <td>
+                                    <div class="d-flex gap-1">
+                                        <a asp-controller="Licenses" asp-action="Edit" asp-route-id="@lic.LicenseId" class="btn btn-sm btn-outline-secondary">Edit</a>
+                                        <a asp-controller="Licenses" asp-action="Delete" asp-route-id="@lic.LicenseId" class="btn btn-sm btn-outline-danger">Remove</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+
+</div>

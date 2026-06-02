@@ -1,0 +1,218 @@
+@model ProviderAssignmentStarter.Models.ViewModels.ReportsViewModel
+@{
+    ViewData["Title"] = "Data Reports";
+}
+
+<div class="page-header-bar">
+    <div class="container-fluid px-3 px-md-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-decal">
+                <li class="breadcrumb-item"><a asp-controller="Providers" asp-action="Index">Providers</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Reports</li>
+            </ol>
+        </nav>
+        <h2>Data Reports</h2>
+        <p class="page-subtitle">Required reporting scenarios for license compliance and audit trail</p>
+    </div>
+</div>
+
+<div class="container-fluid px-3 px-md-4">
+
+<div class="card mb-4">
+    <div class="card-header decal-success d-flex justify-content-between align-items-center">
+        <strong>Active Providers with Active Licenses</strong>
+        <span class="badge bg-light text-dark ms-2">@Model.ActiveProvidersWithActiveLicenses.Count() providers</span>
+    </div>
+    <div class="card-body p-0">
+        @if (!Model.ActiveProvidersWithActiveLicenses.Any())
+        {
+            <p class="p-3 mb-0 text-muted">None found.</p>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-sm mb-0">
+                    <thead>
+                        <tr>
+                            <th>Provider</th>
+                            <th>County</th>
+                            <th>Active Licenses</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var row in Model.ActiveProvidersWithActiveLicenses)
+                        {
+                            <tr>
+                                <td><a asp-controller="Providers" asp-action="Details" asp-route-id="@row.Provider.ProviderId">@row.Provider.ProviderName</a></td>
+                                <td>@row.Provider.County</td>
+                                <td>@string.Join(", ", row.Licenses.Select(l => l.LicenseNumber))</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header decal-warning d-flex justify-content-between align-items-center">
+        <strong>Active Providers with Expired Licenses</strong>
+        <span class="badge bg-light text-dark ms-2">@Model.ActiveProvidersWithExpiredLicenses.Count() providers</span>
+    </div>
+    <div class="card-body p-0">
+        @if (!Model.ActiveProvidersWithExpiredLicenses.Any())
+        {
+            <p class="p-3 mb-0 text-muted">None found.</p>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-sm mb-0">
+                    <thead>
+                        <tr>
+                            <th>Provider</th>
+                            <th>County</th>
+                            <th>Provider Status</th>
+                            <th>Expired Licenses</th>
+                            <th>Expiration</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var row in Model.ActiveProvidersWithExpiredLicenses)
+                        {
+                            foreach (var lic in row.Licenses)
+                            {
+                                <tr>
+                                    <td><a asp-controller="Providers" asp-action="Details" asp-route-id="@row.Provider.ProviderId">@row.Provider.ProviderName</a></td>
+                                    <td>@row.Provider.County</td>
+                                    <td><span class="badge bg-success">@row.Provider.Status</span></td>
+                                    <td>@lic.LicenseNumber</td>
+                                    <td class="text-danger">@lic.ExpirationDate.ToString("MM/dd/yyyy")</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header decal-secondary d-flex justify-content-between align-items-center">
+        <strong>Soft-Deleted Providers (Audit Trail)</strong>
+        <span class="badge bg-light text-dark ms-2">@Model.SoftDeletedProviders.Count() records</span>
+    </div>
+    <div class="card-body p-0">
+        @if (!Model.SoftDeletedProviders.Any())
+        {
+            <p class="p-3 mb-0 text-muted">No soft-deleted providers.</p>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-sm mb-0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>ID</th>
+                            <th>Provider</th>
+                            <th>County</th>
+                            <th>Status at Deletion</th>
+                            <th>Licenses</th>
+                            <th>Created</th>
+                            <th>Deleted At</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ int sn = 0; }
+                        @foreach (var p in Model.SoftDeletedProviders)
+                        {
+                            sn++;
+                            <tr class="text-muted">
+                                <td>@sn</td>
+                                <td><span class="badge bg-secondary">#@p.ProviderId</span></td>
+                                <td>@p.ProviderName</td>
+                                <td>@p.County</td>
+                                <td>@p.Status</td>
+                                <td>
+                                    @if (p.Licenses.Any())
+                                    {
+                                        <span class="badge bg-secondary">@p.Licenses.Count total</span>
+                                        @foreach (var l in p.Licenses)
+                                        {
+                                            <div class="small">
+                                                @l.LicenseNumber
+                                                <span class="badge @(l.LicenseStatus == "Active" ? "bg-success" : l.LicenseStatus == "Expired" ? "bg-danger" : "bg-warning") ms-1">
+                                                    @l.LicenseStatus
+                                                </span>
+                                            </div>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted small">None</span>
+                                    }
+                                </td>
+                                <td>@p.CreatedDate.ToString("MM/dd/yyyy")</td>
+                                <td>@(p.DeletedAt?.ToString("MM/dd/yyyy HH:mm") ?? "—")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header decal-primary d-flex justify-content-between align-items-center">
+        <strong>Audit Log — Recent Activity</strong>
+        <span class="badge bg-light text-dark ms-2">@Model.RecentAuditLogs.Count() entries</span>
+    </div>
+    <div class="card-body p-0">
+        @if (!Model.RecentAuditLogs.Any())
+        {
+            <p class="p-3 mb-0 text-muted">No audit activity recorded yet.</p>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-sm mb-0">
+                    <thead>
+                        <tr>
+                            <th>Date / Time (UTC)</th>
+                            <th>Entity</th>
+                            <th>ID</th>
+                            <th>Action</th>
+                            <th>Summary</th>
+                            <th>Performed By</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var log in Model.RecentAuditLogs)
+                        {
+                            <tr>
+                                <td class="text-nowrap">@log.PerformedAt.ToString("MM/dd/yyyy HH:mm")</td>
+                                <td>@log.EntityType</td>
+                                <td>@log.EntityId</td>
+                                <td>
+                                    <span class="badge @(log.Action == "Create" ? "bg-success" : log.Action == "Delete" ? "bg-danger" : "bg-warning")">
+                                        @log.Action
+                                    </span>
+                                </td>
+                                <td class="small">@log.ChangeSummary</td>
+                                <td>@log.PerformedBy</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>
+
+<a asp-controller="Providers" asp-action="Index" class="btn btn-outline-secondary">Back to Providers</a>
+
+</div>

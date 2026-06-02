@@ -1,0 +1,55 @@
+@model ProviderAssignmentStarter.Models.Provider
+@{
+    ViewData["Title"] = "Delete Provider";
+}
+
+<div class="page-header-bar">
+    <div class="container-fluid px-3 px-md-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-decal">
+                <li class="breadcrumb-item"><a asp-action="Index">Providers</a></li>
+                <li class="breadcrumb-item"><a asp-action="Details" asp-route-id="@Model.ProviderId">@Model.ProviderName</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Soft-Delete</li>
+            </ol>
+        </nav>
+        <h2>Soft-Delete Provider</h2>
+        <p class="page-subtitle">This action retains the audit record</p>
+    </div>
+</div>
+
+<div class="container-fluid px-3 px-md-4">
+
+    <div class="alert alert-warning">
+        <strong>&#9888;&#65039; Note:</strong> This provider will be <em>soft-deleted</em> &mdash; the record is retained in the
+        database for audit purposes but will no longer appear in active listings or operations.
+        This action cannot be reversed through the UI.
+    </div>
+
+    <div class="card mb-4" style="max-width: 520px;">
+        <div class="card-header decal-danger">Provider to be Deactivated</div>
+        <div class="card-body">
+            <dl class="row mb-0">
+                <dt class="col-sm-4">Provider Name</dt>
+                <dd class="col-sm-8">@Model.ProviderName</dd>
+
+                <dt class="col-sm-4">County</dt>
+                <dd class="col-sm-8">@Model.County</dd>
+
+                <dt class="col-sm-4">Status</dt>
+                <dd class="col-sm-8">@Model.Status</dd>
+
+                <dt class="col-sm-4">Licenses</dt>
+                <dd class="col-sm-8">@Model.Licenses.Count</dd>
+            </dl>
+        </div>
+    </div>
+
+    <form asp-action="Delete">
+        <input type="hidden" name="id" value="@Model.ProviderId" />
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-danger">Confirm Soft-Delete</button>
+            <a asp-action="Details" asp-route-id="@Model.ProviderId" class="btn btn-outline-secondary">Cancel</a>
+        </div>
+    </form>
+
+</div>

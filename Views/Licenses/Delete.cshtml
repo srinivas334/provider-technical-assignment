@@ -1,0 +1,53 @@
+@model ProviderAssignmentStarter.Models.License
+@{
+    ViewData["Title"] = "Remove License";
+}
+
+<div class="page-header-bar">
+    <div class="container-fluid px-3 px-md-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-decal">
+                <li class="breadcrumb-item"><a asp-controller="Providers" asp-action="Index">Providers</a></li>
+                <li class="breadcrumb-item"><a asp-controller="Providers" asp-action="Details" asp-route-id="@Model.ProviderId">@Model.Provider.ProviderName</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Remove License</li>
+            </ol>
+        </nav>
+        <h2>Remove License</h2>
+        <p class="page-subtitle">Permanently remove this license record</p>
+    </div>
+</div>
+
+<div class="container-fluid px-3 px-md-4">
+
+    <div class="alert alert-warning">
+        Are you sure you want to remove this license from the provider record?
+    </div>
+
+    <div class="card mb-4" style="max-width: 520px;">
+        <div class="card-header decal-danger">License to be Removed</div>
+        <div class="card-body">
+            <dl class="row mb-0">
+                <dt class="col-sm-4">Provider</dt>
+                <dd class="col-sm-8">@Model.Provider.ProviderName</dd>
+
+                <dt class="col-sm-4">License Number</dt>
+                <dd class="col-sm-8">@Model.LicenseNumber</dd>
+
+                <dt class="col-sm-4">Status</dt>
+                <dd class="col-sm-8">@Model.LicenseStatus</dd>
+
+                <dt class="col-sm-4">Expires</dt>
+                <dd class="col-sm-8">@Model.ExpirationDate.ToString("MM/dd/yyyy")</dd>
+            </dl>
+        </div>
+    </div>
+
+    <form asp-action="Delete">
+        <input type="hidden" name="id" value="@Model.LicenseId" />
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-danger">Remove License</button>
+            <a asp-controller="Providers" asp-action="Details" asp-route-id="@Model.ProviderId" class="btn btn-outline-secondary">Cancel</a>
+        </div>
+    </form>
+
+</div>

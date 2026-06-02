@@ -1,5 +1,47 @@
+/* =====================================================
+    Design System
+   ===================================================== */
+
+:root {
+  --decal-navy: #003366;
+  --decal-navy-dark: #00254d;
+  --decal-navy-hover: #0A4580;
+  --decal-gold: #C8A951;
+  --decal-gold-dark: #A08430;
+  --decal-bg: #F4F6F9;
+  --decal-card-bg: #FFFFFF;
+  --decal-text-primary: #1D2636;
+  --decal-text-secondary: #4A5568;
+  --decal-text-muted: #718096;
+  --decal-border: #CBD5E0;
+  --decal-border-light: #E2E8F0;
+  --decal-success: #276749;
+  --decal-success-bg: #F0FFF4;
+  --decal-warning: #975A16;
+  --decal-warning-bg: #FFFBEB;
+  --decal-danger: #C53030;
+  --decal-danger-bg: #FFF5F5;
+  --decal-info: #2B6CB0;
+
+  --decal-radius-sm: 4px;
+  --decal-radius-md: 6px;
+  --decal-radius-lg: 8px;
+
+  --decal-shadow-sm: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+  --decal-shadow-md: 0 4px 6px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.05);
+  --decal-shadow-lg: 0 10px 15px rgba(0,0,0,0.07), 0 4px 6px rgba(0,0,0,0.05);
+
+  --decal-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Open Sans', Arial, sans-serif;
+}
+
+/* =====================================================
+   Base
+   ===================================================== */
+
 html {
   font-size: 14px;
+  position: relative;
+  min-height: 100%;
 }
 
 @media (min-width: 768px) {
@@ -8,15 +50,537 @@ html {
   }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
 body {
-  margin-bottom: 60px;
+  font-family: var(--decal-font);
+  background-color: var(--decal-bg);
+  color: var(--decal-text-primary);
+  margin: 0;
 }
+
+/* =====================================================
+   State Top Bar
+   ===================================================== */
+
+.state-top-bar {
+  background-color: #1A1A1A;
+  border-bottom: 2px solid var(--decal-gold);
+  padding: 4px 0;
+  min-height: 28px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.80);
+  line-height: 1.4;
+}
+
+.state-top-bar .container-fluid {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.state-top-bar .state-top-left {
+  font-size: 11px;
+  color: rgba(255,255,255,0.80);
+}
+
+.state-top-bar .state-top-right {
+  font-size: 11px;
+  color: rgba(255,255,255,0.70);
+}
+
+/* =====================================================
+   Site Header
+   ===================================================== */
+
+.site-header {
+  background-color: var(--decal-navy);
+  box-shadow: var(--decal-shadow-md);
+  padding: 14px 0;
+}
+
+.site-header .header-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.site-header .header-brand:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
+.site-header .brand-icon {
+  width: 56px;
+  height: 56px;
+  background-color: var(--decal-gold);
+  border-radius: var(--decal-radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  flex-shrink: 0;
+}
+
+.site-header .brand-text h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.site-header .brand-text p {
+  font-size: 0.8125rem;
+  color: rgba(255,255,255,0.65);
+  margin: 2px 0 0 0;
+  font-style: italic;
+}
+
+/* =====================================================
+   Site Nav
+   ===================================================== */
+
+.site-nav {
+  background-color: var(--decal-navy-hover);
+  border-top: 1px solid rgba(255,255,255,0.12);
+}
+
+.site-nav .navbar {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.site-nav .navbar-toggler {
+  border-color: rgba(255,255,255,0.3);
+  padding: 4px 8px;
+  margin: 4px 0;
+}
+
+.site-nav .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255,255,255,0.7%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.site-nav .nav-link {
+  color: rgba(255,255,255,0.85) !important;
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 10px 14px !important;
+  position: relative;
+  transition: color 0.15s ease;
+}
+
+.site-nav .nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 14px;
+  right: 14px;
+  height: 2px;
+  background-color: var(--decal-gold);
+  transform: scaleX(0);
+  transition: transform 0.2s ease;
+}
+
+.site-nav .nav-link:hover {
+  color: #ffffff !important;
+}
+
+.site-nav .nav-link:hover::after,
+.site-nav .nav-link.active::after {
+  transform: scaleX(1);
+}
+
+.site-nav .nav-link.active {
+  color: #ffffff !important;
+}
+
+/* =====================================================
+   Page Header Bar
+   ===================================================== */
+
+.page-header-bar {
+  background-color: #ffffff;
+  border-bottom: 1px solid var(--decal-border-light);
+  padding: 16px 0;
+  margin-bottom: 24px;
+}
+
+.page-header-bar h2 {
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: var(--decal-navy);
+  margin: 0 0 2px 0;
+  line-height: 1.3;
+}
+
+.page-header-bar .page-subtitle {
+  font-size: 0.8125rem;
+  color: var(--decal-text-muted);
+  margin: 0;
+}
+
+/* =====================================================
+   Breadcrumb
+   ===================================================== */
+
+.breadcrumb-decal {
+  background: none;
+  padding: 0;
+  margin: 0 0 6px 0;
+  font-size: 0.75rem;
+}
+
+.breadcrumb-decal .breadcrumb-item {
+  color: var(--decal-text-muted);
+}
+
+.breadcrumb-decal .breadcrumb-item a {
+  color: var(--decal-info);
+  text-decoration: none;
+}
+
+.breadcrumb-decal .breadcrumb-item a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb-decal .breadcrumb-item.active {
+  color: var(--decal-text-secondary);
+}
+
+.breadcrumb-decal .breadcrumb-item + .breadcrumb-item::before {
+  color: var(--decal-text-muted);
+}
+
+/* =====================================================
+   Cards
+   ===================================================== */
+
+.card {
+  border: 1px solid var(--decal-border-light);
+  border-radius: var(--decal-radius-md);
+  box-shadow: var(--decal-shadow-sm);
+  background-color: var(--decal-card-bg);
+}
+
+.card-header {
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--decal-border-light);
+  border-radius: calc(var(--decal-radius-md) - 1px) calc(var(--decal-radius-md) - 1px) 0 0;
+  background-color: #F7FAFC;
+  color: var(--decal-text-primary);
+}
+
+.card-header.decal-primary {
+  background-color: var(--decal-navy);
+  color: #ffffff;
+  border-bottom: none;
+}
+
+.card-header.decal-success {
+  background-color: var(--decal-success);
+  color: #ffffff;
+  border-bottom: none;
+}
+
+.card-header.decal-warning {
+  background-color: var(--decal-warning);
+  color: #ffffff;
+  border-bottom: none;
+}
+
+.card-header.decal-danger {
+  background-color: var(--decal-danger);
+  color: #ffffff;
+  border-bottom: none;
+}
+
+.card-header.decal-secondary {
+  background-color: #4A5568;
+  color: #ffffff;
+  border-bottom: none;
+}
+
+/* =====================================================
+   Buttons
+   ===================================================== */
+
+.btn-primary {
+  background-color: var(--decal-navy) !important;
+  border-color: var(--decal-navy) !important;
+  color: #ffffff !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: var(--decal-navy-hover) !important;
+  border-color: var(--decal-navy-hover) !important;
+}
+
+.btn-primary:active {
+  background-color: var(--decal-navy-dark) !important;
+  border-color: var(--decal-navy-dark) !important;
+}
+
+.btn-decal-gold {
+  background-color: var(--decal-gold);
+  border-color: var(--decal-gold);
+  color: var(--decal-navy);
+  font-weight: 600;
+}
+
+.btn-decal-gold:hover,
+.btn-decal-gold:focus {
+  background-color: var(--decal-gold-dark);
+  border-color: var(--decal-gold-dark);
+  color: var(--decal-navy);
+}
+
+.btn-decal-gold:active {
+  background-color: var(--decal-gold-dark);
+  border-color: var(--decal-gold-dark);
+  color: var(--decal-navy);
+}
+
+.btn-outline-primary {
+  color: var(--decal-navy) !important;
+  border-color: var(--decal-navy) !important;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus {
+  background-color: var(--decal-navy) !important;
+  color: #ffffff !important;
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem rgba(0, 51, 102, 0.4);
+}
+
+/* =====================================================
+   Tables
+   ===================================================== */
+
+.table {
+  color: var(--decal-text-primary);
+  font-size: 0.875rem;
+}
+
+.table thead th {
+  background-color: #F7FAFC;
+  color: var(--decal-text-secondary);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--decal-border);
+  vertical-align: middle;
+}
+
+.table tbody td {
+  padding: 10px 12px;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--decal-border-light);
+}
+
+.table.table-sm thead th {
+  padding: 7px 10px;
+}
+
+.table.table-sm tbody td {
+  padding: 7px 10px;
+}
+
+.table-dark thead th,
+.table thead.table-dark th {
+  background-color: var(--decal-navy) !important;
+  color: #ffffff !important;
+  border-color: var(--decal-navy-hover) !important;
+}
+
+.table-hover tbody tr:hover {
+  background-color: rgba(0, 51, 102, 0.03);
+}
+
+/* =====================================================
+   Badges
+   ===================================================== */
+
+.badge.bg-success {
+  background-color: var(--decal-success) !important;
+  color: #ffffff;
+}
+
+.badge.bg-warning {
+  background-color: var(--decal-gold) !important;
+  color: var(--decal-navy) !important;
+}
+
+.badge.bg-danger {
+  background-color: var(--decal-danger) !important;
+  color: #ffffff;
+}
+
+.badge.bg-secondary {
+  background-color: #4A5568 !important;
+  color: #ffffff;
+}
+
+/* =====================================================
+   Form Controls
+   ===================================================== */
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--decal-navy);
+  box-shadow: 0 0 0 0.2rem rgba(0, 51, 102, 0.2);
+}
+
+.form-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--decal-text-secondary);
+  margin-bottom: 4px;
+}
+
+/* =====================================================
+   Alerts
+   ===================================================== */
+
+.alert-success {
+  background-color: var(--decal-success-bg);
+  border-color: var(--decal-success);
+  color: var(--decal-success);
+}
+
+.alert-warning {
+  background-color: var(--decal-warning-bg);
+  border-color: #D69E2E;
+  color: var(--decal-warning);
+}
+
+.alert-danger {
+  background-color: var(--decal-danger-bg);
+  border-color: var(--decal-danger);
+  color: var(--decal-danger);
+}
+
+.alert-info {
+  background-color: #EBF8FF;
+  border-color: #90CDF4;
+  color: var(--decal-info);
+}
+
+/* =====================================================
+   Site Footer
+   ===================================================== */
+
+.site-footer {
+  background-color: var(--decal-navy);
+  color: rgba(255,255,255,0.80);
+  padding: 40px 0 0 0;
+  margin-top: 40px;
+}
+
+.site-footer .footer-heading {
+  color: var(--decal-gold);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 12px;
+}
+
+.site-footer p,
+.site-footer address {
+  font-size: 0.8125rem;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.6;
+  font-style: normal;
+}
+
+.site-footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.site-footer ul li {
+  margin-bottom: 6px;
+}
+
+.site-footer a {
+  color: rgba(255,255,255,0.70);
+  text-decoration: none;
+  font-size: 0.8125rem;
+  transition: color 0.15s ease;
+}
+
+.site-footer a:hover {
+  color: var(--decal-gold);
+  text-decoration: none;
+}
+
+.site-footer .footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.15);
+  padding: 12px 0;
+  margin-top: 28px;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.45);
+}
+
+/* =====================================================
+   Main Content
+   ===================================================== */
+
+.main-content {
+  padding: 24px 0;
+  min-height: calc(100vh - 300px);
+}
+
+/* =====================================================
+   Stat Card
+   ===================================================== */
+
+.stat-card {
+  background-color: var(--decal-card-bg);
+  border: 1px solid var(--decal-border-light);
+  border-radius: var(--decal-radius-md);
+  box-shadow: var(--decal-shadow-sm);
+  padding: 20px;
+}
+
+/* =====================================================
+   Section Title
+   ===================================================== */
+
+.section-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--decal-navy);
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--decal-gold);
+  margin-bottom: 16px;
+  display: inline-block;
+}
+
+/* =====================================================
+   Utility Classes
+   ===================================================== */
+
+.text-decal-navy { color: var(--decal-navy) !important; }
+.text-decal-gold { color: var(--decal-gold) !important; }
+.bg-decal-navy   { background-color: var(--decal-navy) !important; color: #ffffff !important; }
+.bg-decal-gold   { background-color: var(--decal-gold) !important; color: var(--decal-navy) !important; }

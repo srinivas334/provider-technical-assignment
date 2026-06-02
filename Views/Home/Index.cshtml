@@ -1,8 +1,430 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+@{
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<!-- Hero -->
+<div class="lp-hero">
+    <div class="lp-hero-inner">
+        <div class="lp-hero-badge">Department of Early Care and Learning</div>
+        <h1 class="lp-hero-title">Provider Management System</h1>
+        <p class="lp-hero-subtitle">
+            A centralised platform for managing childcare provider registrations.
+        </p>
+        <div class="lp-hero-actions">
+            <a asp-controller="Providers" asp-action="Index" class="btn lp-btn-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" viewBox="0 0 16 16" class="lp-btn-icon">
+                    <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                    <path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z"/>
+                    <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
+                </svg>
+                Manage Providers
+            </a>
+            <a href="/dashboard" class="btn lp-btn-secondary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" viewBox="0 0 16 16" class="lp-btn-icon">
+                    <path d="M0 0h1v15h15v1H0V0zm14.817 3.113a.5.5 0 0 1 .07.704l-4.5 5.5a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61 4.15-5.073a.5.5 0 0 1 .704-.07z"/>
+                </svg>
+                Analytics Dashboard
+            </a>
+        </div>
+    </div>
+    <div class="lp-hero-graphic" aria-hidden="true">
+        <div class="lp-hero-circle lp-hero-circle--lg"></div>
+        <div class="lp-hero-circle lp-hero-circle--sm"></div>
+    </div>
 </div>
+
+<!-- Quick Actions -->
+<section class="lp-section">
+    <h2 class="lp-section-heading">Quick Access</h2>
+    <div class="lp-grid lp-grid--3">
+
+        <a asp-controller="Providers" asp-action="Index" class="lp-action-card">
+            <div class="lp-action-icon lp-action-icon--navy">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                    <path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z"/>
+                    <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
+                </svg>
+            </div>
+            <div class="lp-action-body">
+                <h3 class="lp-action-title">Providers</h3>
+                <p class="lp-action-desc">Register, search, and manage childcare provider records and status.</p>
+            </div>
+            <span class="lp-action-arrow">&#8594;</span>
+        </a>
+
+        <a asp-controller="Reports" asp-action="Index" class="lp-action-card">
+            <div class="lp-action-icon lp-action-icon--gold">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M14 2H2a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1zM2 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H2z"/>
+                    <path d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+                </svg>
+            </div>
+            <div class="lp-action-body">
+                <h3 class="lp-action-title">Reports</h3>
+                <p class="lp-action-desc">Generate compliance and licensing reports for regulatory oversight.</p>
+            </div>
+            <span class="lp-action-arrow">&#8594;</span>
+        </a>
+
+        <a href="/dashboard" class="lp-action-card">
+            <div class="lp-action-icon lp-action-icon--teal">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M0 0h1v15h15v1H0V0zm14.817 3.113a.5.5 0 0 1 .07.704l-4.5 5.5a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61 4.15-5.073a.5.5 0 0 1 .704-.07z"/>
+                </svg>
+            </div>
+            <div class="lp-action-body">
+                <h3 class="lp-action-title">Analytics Dashboard</h3>
+                <p class="lp-action-desc">Interactive charts and live metrics across providers and licenses.</p>
+            </div>
+            <span class="lp-action-arrow">&#8594;</span>
+        </a>
+
+    </div>
+</section>
+
+<!-- Features -->
+<section class="lp-section">
+    <h2 class="lp-section-heading">Platform Capabilities</h2>
+    <div class="lp-grid lp-grid--3">
+
+        <div class="lp-feature-card">
+            <div class="lp-feature-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                </svg>
+            </div>
+            <h4 class="lp-feature-title">License Tracking</h4>
+            <p class="lp-feature-desc">Monitor active, suspended, and expiring licenses with automated status updates and 90-day expiry alerts.</p>
+        </div>
+
+        <div class="lp-feature-card">
+            <div class="lp-feature-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                </svg>
+            </div>
+            <h4 class="lp-feature-title">Status Monitoring</h4>
+            <p class="lp-feature-desc">Real-time visibility into provider status — Active, Inactive, and Pending — with full audit history.</p>
+        </div>
+
+        <div class="lp-feature-card">
+            <div class="lp-feature-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M4 11H2v3h2v-3zm5-4H7v7h2V7zm5-5v12h-2V2h2zm-2-1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1h-2zM6 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm-5 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3z"/>
+                </svg>
+            </div>
+            <h4 class="lp-feature-title">Compliance Reporting</h4>
+            <p class="lp-feature-desc">Export detailed compliance and licensing reports to support regulatory review and state-level oversight.</p>
+        </div>
+
+        <div class="lp-feature-card">
+            <div class="lp-feature-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
+                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/>
+                </svg>
+            </div>
+            <h4 class="lp-feature-title">Audit Logging</h4>
+            <p class="lp-feature-desc">Every create, update, and delete action is logged with timestamp and user context for full traceability.</p>
+        </div>
+
+        <div class="lp-feature-card">
+            <div class="lp-feature-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
+                </svg>
+            </div>
+            <h4 class="lp-feature-title">County Coverage</h4>
+            <p class="lp-feature-desc">Providers organised by county with duplicate-prevention rules to ensure data integrity across Georgia.</p>
+        </div>
+
+        <div class="lp-feature-card">
+            <div class="lp-feature-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM4.5 9a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1h-4z"/>
+                </svg>
+            </div>
+            <h4 class="lp-feature-title">License Management</h4>
+            <p class="lp-feature-desc">Add, edit, and remove licenses per provider with status, number, and expiration date tracking.</p>
+        </div>
+
+    </div>
+</section>
+
+<style>
+/* ---- Landing Page Styles ---- */
+
+.lp-hero {
+    position: relative;
+    background: linear-gradient(135deg, var(--decal-navy) 0%, var(--decal-navy-hover) 100%);
+    border-radius: var(--decal-radius-lg);
+    padding: 56px 48px;
+    margin-bottom: 40px;
+    overflow: hidden;
+    min-height: 260px;
+    display: flex;
+    align-items: center;
+}
+
+.lp-hero-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 620px;
+}
+
+.lp-hero-badge {
+    display: inline-block;
+    background-color: rgba(200, 169, 81, 0.2);
+    border: 1px solid rgba(200, 169, 81, 0.5);
+    color: var(--decal-gold);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 100px;
+    margin-bottom: 16px;
+}
+
+.lp-hero-title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0 0 12px 0;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+}
+
+.lp-hero-subtitle {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.72);
+    margin: 0 0 28px 0;
+    line-height: 1.6;
+}
+
+.lp-hero-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.lp-btn-primary {
+    background-color: var(--decal-gold);
+    border-color: var(--decal-gold);
+    color: var(--decal-navy) !important;
+    font-weight: 700;
+    font-size: 0.875rem;
+    padding: 10px 22px;
+    border-radius: var(--decal-radius-md);
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    text-decoration: none;
+    transition: background-color 0.15s, border-color 0.15s;
+}
+
+.lp-btn-primary:hover {
+    background-color: var(--decal-gold-dark);
+    border-color: var(--decal-gold-dark);
+    color: var(--decal-navy) !important;
+    text-decoration: none;
+}
+
+.lp-btn-secondary {
+    background-color: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: #ffffff !important;
+    font-weight: 600;
+    font-size: 0.875rem;
+    padding: 10px 22px;
+    border-radius: var(--decal-radius-md);
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    text-decoration: none;
+    transition: background-color 0.15s;
+}
+
+.lp-btn-secondary:hover {
+    background-color: rgba(255,255,255,0.2);
+    color: #ffffff !important;
+    text-decoration: none;
+}
+
+.lp-btn-icon {
+    flex-shrink: 0;
+}
+
+/* Hero decorative circles */
+.lp-hero-graphic {
+    position: absolute;
+    right: -40px;
+    top: -40px;
+    z-index: 0;
+}
+
+.lp-hero-circle {
+    position: absolute;
+    border-radius: 50%;
+    background-color: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+.lp-hero-circle--lg {
+    width: 320px;
+    height: 320px;
+    top: -60px;
+    right: -60px;
+}
+
+.lp-hero-circle--sm {
+    width: 180px;
+    height: 180px;
+    top: 40px;
+    right: 80px;
+}
+
+/* Sections */
+.lp-section {
+    margin-bottom: 40px;
+}
+
+.lp-section-heading {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--decal-navy);
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--decal-gold);
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+/* Grid */
+.lp-grid {
+    display: grid;
+    gap: 16px;
+}
+
+.lp-grid--3 {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+
+/* Action Cards */
+.lp-action-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: #ffffff;
+    border: 1px solid var(--decal-border-light);
+    border-radius: var(--decal-radius-lg);
+    padding: 20px;
+    text-decoration: none;
+    color: var(--decal-text-primary);
+    box-shadow: var(--decal-shadow-sm);
+    transition: box-shadow 0.15s, border-color 0.15s, transform 0.15s;
+}
+
+.lp-action-card:hover {
+    box-shadow: var(--decal-shadow-md);
+    border-color: var(--decal-navy);
+    transform: translateY(-2px);
+    text-decoration: none;
+    color: var(--decal-text-primary);
+}
+
+.lp-action-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--decal-radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.lp-action-icon--navy { background-color: rgba(0, 51, 102, 0.1); color: var(--decal-navy); }
+.lp-action-icon--gold { background-color: rgba(200, 169, 81, 0.15); color: var(--decal-gold-dark); }
+.lp-action-icon--teal { background-color: rgba(43, 108, 176, 0.1); color: var(--decal-info); }
+
+.lp-action-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.lp-action-title {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--decal-navy);
+    margin: 0 0 4px 0;
+}
+
+.lp-action-desc {
+    font-size: 0.8125rem;
+    color: var(--decal-text-muted);
+    margin: 0;
+    line-height: 1.5;
+}
+
+.lp-action-arrow {
+    font-size: 1.1rem;
+    color: var(--decal-border);
+    flex-shrink: 0;
+    transition: color 0.15s, transform 0.15s;
+}
+
+.lp-action-card:hover .lp-action-arrow {
+    color: var(--decal-navy);
+    transform: translateX(3px);
+}
+
+/* Feature Cards */
+.lp-feature-card {
+    background: #ffffff;
+    border: 1px solid var(--decal-border-light);
+    border-radius: var(--decal-radius-lg);
+    padding: 24px;
+    box-shadow: var(--decal-shadow-sm);
+}
+
+.lp-feature-icon {
+    width: 44px;
+    height: 44px;
+    background-color: rgba(0, 51, 102, 0.07);
+    color: var(--decal-navy);
+    border-radius: var(--decal-radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 14px;
+}
+
+.lp-feature-title {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--decal-text-primary);
+    margin: 0 0 6px 0;
+}
+
+.lp-feature-desc {
+    font-size: 0.8125rem;
+    color: var(--decal-text-muted);
+    margin: 0;
+    line-height: 1.6;
+}
+
+@@media (max-width: 576px) {
+    .lp-hero {
+        padding: 36px 24px;
+    }
+
+    .lp-hero-title {
+        font-size: 1.5rem;
+    }
+
+    .lp-hero-circle--lg, .lp-hero-circle--sm {
+        display: none;
+    }
+}
+</style>

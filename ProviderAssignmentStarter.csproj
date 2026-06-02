@@ -4,6 +4,43 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <!-- React app is compiled by npm run build (Vite+tsc). Block MSBuild's TypeScript pass
+         so Visual Studio's bundled (pre-5.x) compiler doesn't conflict. -->
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="ProviderAssignmentStarter.MSTests\**\*.cs" />
+  </ItemGroup>
+
+  <Target Name="KillRunningApp" BeforeTargets="Build">
+    <Exec Command="taskkill /F /IM ProviderAssignmentStarter.exe &gt;nul 2&gt;&amp;1"
+          IgnoreExitCode="true" />
+  </Target>
+
+  <Target Name="NpmInstall" BeforeTargets="BuildReactApp"
+          Condition="!Exists('$(MSBuildProjectDirectory)\ClientApp\node_modules')">
+    <Message Text="Installing npm packages..." Importance="high" />
+    <Exec Command="cmd /c npm ci" WorkingDirectory="$(MSBuildProjectDirectory)\ClientApp"
+          ContinueOnError="true" />
+  </Target>
+
+  <Target Name="BuildReactApp" BeforeTargets="Build">
+    <Message Text="Building React app..." Importance="high" />
+    <Exec Command="cmd /c npm run build" WorkingDirectory="$(MSBuildProjectDirectory)\ClientApp"
+          ContinueOnError="true" />
+  </Target>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
 
 </Project>
